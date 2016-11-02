@@ -12,6 +12,11 @@ class FilesController < ActionController::Base
   end
 
   def new
+    @file = File.new
+  end
+
+  def create
+    @file = File.new(file_params)
   end
 
   def destroy
