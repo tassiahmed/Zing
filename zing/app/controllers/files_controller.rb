@@ -5,10 +5,11 @@ class FilesController < ActionController::Base
 
   def download
     @file = File.find(params[:id])
+    return unless @file.available_for_download?
     @file_data = FileData.where(file_id: params[:id]).first
-    send_data @file_data.contents,
-              filename: @file.file_name,
-              type: @file.content_type
+    send_data(@file_data.contents,
+              type: @file.content_type,
+              filename:  @file.file_name)
   end
 
   def new

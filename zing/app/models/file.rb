@@ -14,6 +14,10 @@ class File < ActiveRecord::Base
     end
   end
 
+  def available_for_download?
+    file_active == true
+  end
+
   private
 
   def generate_file_url(file)
