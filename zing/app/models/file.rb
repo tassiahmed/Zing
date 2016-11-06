@@ -1,3 +1,5 @@
+require 'digest/murmurhash'
+
 class File < ActiveRecord::Base
   has_one :file_data, dependent: :destroy
 
@@ -22,6 +24,16 @@ class File < ActiveRecord::Base
 
   def generate_file_url(file)
     # Create a unique url for file
+    puts "Generating download url #{file.original_filename}"
+    tmp_url = Digest::MurmurHash64a.hexdigest(file.original_filename + :id.to_s)
+    inc = 1
+    while File.exist?(file_url: tmp_url)
+      tmp_url = Digest::MurmurHash64a.hexdigest(file.original_filename +
+                                                (:id + inc).to_s)
+      inc += 1
+    end
+    puts " -- created url: #{tmp_url}"
+    tmp_url
   end
 
   def sanitize_filename(filename)
