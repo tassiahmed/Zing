@@ -1,3 +1,4 @@
+# Model that stores actual File contents
 class FileData < ActiveRecord::Base
   belongs_to :file
 
