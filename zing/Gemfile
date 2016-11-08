@@ -30,6 +30,7 @@ gem 'pg'
 # Rubocop gem (does syntax and organization checks)
 gem 'rubocop'
 gem 'zeus'
+gem 'haml'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

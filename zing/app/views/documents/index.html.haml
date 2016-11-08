@@ -1,0 +1,15 @@
+%h2 Listing documents
+%table
+  %thead
+    %tr
+      %th Filename
+      %th
+      %th
+  %tbody
+    - @documents.each do |document|
+      %tr
+        %td= document.filename
+        %td=''
+        %td= button_to 'Download', document, method: :get
+%br/
+= link_to 'New Document', new_document_path

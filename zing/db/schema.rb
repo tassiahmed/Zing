@@ -10,16 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161106194120) do
+ActiveRecord::Schema.define(version: 20161108192304) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "file_datas", primary_key: "file_id", force: :cascade do |t|
+  create_table "document_data", primary_key: "document_id", id: :integer, default: -> { "nextval('document_data_file_id_seq'::regclass)" }, force: :cascade do |t|
     t.binary "contents"
   end
 
-  create_table "files", force: :cascade do |t|
+  create_table "documents", force: :cascade do |t|
     t.string   "filename"
     t.integer  "time_available"
     t.boolean  "file_active"
@@ -27,8 +27,8 @@ ActiveRecord::Schema.define(version: 20161106194120) do
     t.string   "file_url"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
-    t.index ["file_url"], name: "index_files_on_file_url", unique: true, using: :btree
+    t.index ["file_url"], name: "index_documents_on_file_url", unique: true, using: :btree
   end
 
-  add_foreign_key "file_datas", "files"
+  add_foreign_key "document_data", "documents"
 end
