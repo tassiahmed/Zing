@@ -33,7 +33,7 @@ class Document < ActiveRecord::Base
     inc = 1
     tmp_url = Digest::MurmurHash64A.hexdigest(file.original_filename +
                                               inc.to_s)
-    while File.exist?(tmp_url)
+    until Document.where(file_url: tmp_url).empty?
       inc += 1
       tmp_url = Digest::MurmurHash64A.hexdigest(file.original_filename +
                                                 inc.to_s)
