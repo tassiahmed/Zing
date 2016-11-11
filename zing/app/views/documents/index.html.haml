@@ -10,6 +10,6 @@
       %tr
         %td= document.filename
         %td=''
-        %td= button_to 'Download', document_path(document.file_url), method: :get
+        %td= button_to 'Download', document_path(document.file_url)
 %br
 = link_to 'New Document', new_document_path
