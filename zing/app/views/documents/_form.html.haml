@@ -1,22 +1,18 @@
 = form_for(@document) do |f|
-  - if @document.errors.any?
-    #error_explanation
-      %h2
-        = pluralize(@document.errors.count, "error")
-        prohibited this document from being saved:
-      %ul
-        - @document.errors.full_messages.each do |msg|
-          %li= msg
-  .field
-    Password
-    = f.text_field :password
-    %br
 
-    Time Available
-    = f.select :time_available, options_for_select( [  ['10', 10], ['15', 15], ['30', 30] ] )
-    %br
-    
-    = f.file_field :file
-    %br
+  .field
+    .form-group
+      = f.file_field :file
+
+    .form-group
+      = label :time_available, 'Time Available'
+      = f.select :time_available, options_for_select( [  ['10', 10], ['15', 15], ['30', 30] ] )
+      %br
+
+    .form-group
+      = label :password, 'Password (optional)'
+      = f.text_field :password, placeholder: 'Password'
+      %br
+
   .actions
-    = f.submit
+    = f.submit value: 'Upload', data: {disable_with: 'Uploading...'}, class: 'btn btn-primary'
