@@ -1,6 +1,6 @@
 #  Controller for Files
 class DocumentsController < ApplicationController
-  before_action :set_file, only: [:download, :edit, :destroy]
+  before_action :set_file, only: [:download, :show, :edit, :destroy]
 
   def index
     @documents = Document.where(file_active: true)
@@ -8,6 +8,9 @@ class DocumentsController < ApplicationController
 
   def new
     @document = Document.new
+  end
+
+  def show
   end
 
   def create
@@ -42,7 +45,7 @@ class DocumentsController < ApplicationController
   private
 
   def set_file
-    @document = Document.find(params[:format])
+    @document = Document.where(file_url: params[:id]).first
   end
 
   # Allow only paramters that have been whitelisted to be received

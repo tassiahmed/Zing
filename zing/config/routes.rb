@@ -6,8 +6,9 @@ Rails.application.routes.draw do
   resources :documents do
     member do
       get :download, param: :file_url
+      get :show, param: :file_url
     end
   end
 
-  # root to: redirect('/documents')
+  root to: redirect('/documents')
 end
