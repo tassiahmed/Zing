@@ -1,9 +1,11 @@
 require 'digest/murmurhash'
+require 'bcrypt'
 
 # Model for Files
 class Document < ActiveRecord::Base
-  has_one :document_data, dependent: :destroy
+  include BCrypt
   attr_accessor :document_data
+  has_one :document_data, dependent: :destroy
   after_commit :create_document_data
 
   def initialize(params = {})
@@ -15,17 +17,24 @@ class Document < ActiveRecord::Base
     self.file_url = generate_file_url(@file)
     self.file_active = true
     self.time_available = params.delete(:time_available)
+    @password = Password.create(params.delete(:password))
+    self.password_hash = @password
   end
 
   def available_for_download?
     file_active == true
   end
 
+  def password
+    return unless password_hash
+    @password ||= Password.new(password_hash)
+  end
+
   private
 
   def create_document_data
     @document_data = DocumentData.new(document_id: id, file: @file)
-    @document_data.save
+    @document_data.save!
   end
 
   def generate_file_url(file)

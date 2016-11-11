@@ -31,6 +31,7 @@ gem 'pg'
 gem 'rubocop'
 gem 'zeus'
 gem 'haml'
+gem 'bcrypt'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
