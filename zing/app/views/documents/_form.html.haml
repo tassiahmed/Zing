@@ -8,15 +8,16 @@
         - @document.errors.full_messages.each do |msg|
           %li= msg
   .field
-    Password
+    = f.file_field :file
+    %br
+
+    = label :time_available, 'Time Available'
+    = f.select :time_available, options_for_select( [  ['10', 10], ['15', 15], ['30', 30] ] )
+    %br
+
+    = label :password, 'Password (optional)'
     = f.text_field :password
     %br
 
-    Time Available
-    = f.select :time_available, options_for_select( [  ['10', 10], ['15', 15], ['30', 30] ] )
-    %br
-    
-    = f.file_field :file
-    %br
   .actions
-    = f.submit
+    = f.submit value: 'Upload', data: {disable_with: 'Uploading...'}, class: 'btn btn-primary'

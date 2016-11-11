@@ -1,15 +1,25 @@
-%h2 Listing documents
-%table
-  %thead
-    %tr
-      %th Filename
-      %th
-      %th
-  %tbody
-    - @documents.each do |document|
-      %tr
-        %td= document.filename
-        %td=''
-        %td= button_to 'Download', document_path(document.file_url)
-%br
-= link_to 'New Document', new_document_path
+%body
+  .navbar.navbar-default.navbar-static-top
+    .container
+      %button.navbar-toggle(type="button" data-toggle="collapse" data-target=".navbar-responsive-collapse")
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+      %a.navbar-brand(href= 'documents') Zing
+
+  %container
+    %h3 Documents
+    %table.table.table-striped
+      %thead
+        %tr
+          %th Filename
+          %th
+          %th
+      %tbody
+        - @documents.each do |document|
+          %tr
+            %td= document.filename
+            %td=''
+            %td= button_to 'Download', document_path(document.file_url), class: 'btn btn-primary'
+  %br
+  = button_to 'Upload New File', new_document_path, method: :get, class: 'btn-lg btn-primary'
