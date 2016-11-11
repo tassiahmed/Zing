@@ -1,0 +1,4 @@
+%h1
+  = @document.filename
+  = button_to 'Download', download_document_path(@document.file_url), method: :get
+  = link_to 'Back', documents_path
