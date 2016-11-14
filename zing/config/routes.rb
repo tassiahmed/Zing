@@ -7,5 +7,5 @@ Rails.application.routes.draw do
     end
   end
 
-  root to: redirect('/documents')
+  root 'documents#home'
 end
