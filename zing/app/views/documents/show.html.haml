@@ -1,8 +1,31 @@
-%body
-  = render partial: 'layouts/navbar'
+-# %body
+-#   = render partial: 'layouts/navbar'
 
-  - if @document
-    = label :filename, @document.filename
-    = button_to 'Download', download_document_path(@document.file_url), method: :get, class: 'btn btn-primary'
-    = button_to 'Back', documents_path, method: :get, class: 'btn btn-info'
-  -# = render file: 'layouts/landingPage'
+%html
+  %head
+    %link{href: "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css", rel: "stylesheet"}/
+    / jQuery library
+    %script{src: "https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"}
+    / Latest compiled JavaScript
+    %script{src: "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"}
+    %title Zing by Spoiler
+    %meta{charset: "utf-8"}/
+    %meta{content: "width=device-width, initial-scale=1", name: "viewport"}/
+  %body.landing
+    #page-wrapper
+      %header#header
+        %h1#logo Zing
+        %nav#nav
+          %ul
+            %li
+              %a{href: "documents/new"} Upload
+            %li
+              %a{href: "#about"} About
+            %li
+              %a{href: "#faq"} FAQ
+      %section#banner
+        .content
+          - if @document
+            = label :filename, @document.filename
+            = button_to 'Download', download_document_path(@document.file_url), method: :get, class: 'btn btn-primary'
+            = button_to 'Back', root_path, method: :get, class: 'btn btn-info'
