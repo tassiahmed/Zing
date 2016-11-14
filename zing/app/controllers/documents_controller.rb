@@ -6,6 +6,10 @@ class DocumentsController < ApplicationController
     @documents = Document.where(file_active: true)
   end
 
+  def home
+    @documents = Document.where(file_active: true)
+  end
+
   def new
     @document = Document.new
   end
