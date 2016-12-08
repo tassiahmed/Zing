@@ -1,1 +1,1 @@
-gcc *.c -o server
+gcc fmServer.c -o server
