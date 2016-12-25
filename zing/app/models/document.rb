@@ -17,8 +17,6 @@ class Document < ActiveRecord::Base
     self.file_url = generate_file_url(@file)
     self.file_active = true
     self.time_available = params.delete(:time_available)
-    @password = Password.create(params.delete(:password))
-    self.password_hash = @password
   end
 
   def available_for_download?
@@ -26,8 +24,16 @@ class Document < ActiveRecord::Base
   end
 
   def password
-    return unless password_hash
     @password ||= Password.new(password_hash)
+  end
+
+  def password=(new_password)
+    @password = Password.create(new_password)
+    self.password_hash = @password
+  end
+
+  def check_password(user_input)
+    password == user_input
   end
 
   private

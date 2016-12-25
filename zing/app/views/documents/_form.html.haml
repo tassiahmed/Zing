@@ -11,7 +11,10 @@
 
     .form-group
       = label :password, 'Password (optional)'
-      = f.text_field :password, placeholder: 'Password'
+      = f.password_field :password, class: 'form_input'
+
+      = label :confirm_password, 'Confirm Password'
+      = f.password_field :password_confirmation, class: 'form_input'
       %br
 
   .actions

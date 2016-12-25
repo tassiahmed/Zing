@@ -1,19 +1,40 @@
-%body
-  = render partial: 'layouts/navbar'
-
-  %container
-    %h3 Documents
-    %table.table.table-striped
-      %thead
-        %tr
-          %th Filename
-          %th
-          %th
-      %tbody
-        - @documents.each do |document|
-          %tr
-            %td= document.filename
-            %td=''
-            %td= button_to 'Download', document_path(document.file_url), class: 'btn btn-primary'
-  %br
-  = button_to 'Upload New File', new_document_path, method: :get, class: 'btn-lg btn-primary'
+!!!
+/ Latest compiled and minified CSS
+%html
+  %head
+    %link{href: "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css", rel: "stylesheet"}/
+    / jQuery library
+    %script{src: "https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"}
+    / Latest compiled JavaScript
+    %script{src: "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"}
+    %title Zing by Spoiler
+    %meta{charset: "utf-8"}/
+    %meta{content: "width=device-width, initial-scale=1", name: "viewport"}/
+  %body.landing
+    #page-wrapper
+      %header#header
+        %h1#logo Zing
+        %nav#nav
+          %ul
+            %li
+              %a{href: "documents/new"} Upload
+            %li
+              %a{href: "#about"} About
+            %li
+              %a{href: "#faq"} FAQ
+      %section#banner
+        .content
+          %h3
+            %table.table
+              %tbody
+                - @documents.each do |document|
+                  %tr
+                    %td= document.filename
+                    %td=''
+                    %td= button_to 'Download', document_path(document.file_url), class: 'btn btn-primary'
+      %footer{if: "footer"}
+        %ul.copyright
+          %li © Zing. All rights reserved.
+          %li
+            Design:
+            %a{href: "http://html5up.net"} HTML5 UP

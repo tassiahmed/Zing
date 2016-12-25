@@ -6,32 +6,28 @@ class DocumentsController < ApplicationController
     @documents = Document.where(file_active: true)
   end
 
-  def home
-    @documents = Document.where(file_active: true)
-  end
-
   def new
     @document = Document.new
   end
 
   def show
+    # raise
+    @password_verified = true
+    @password_verified = false if @document.password != '' &&
+                                  params[:password_confirmed] != true
   end
 
   def create
     return unless params[:document]
-    @document = Document.new(file_params)
-
-    respond_to do |format|
-      if @document.save
-        format.html { redirect_to documents_path,
-                      notice: "#{@document.filename} has been saved" }
-      else
-        format.html { render action: 'new' }
-      end
+    unless confirm_password
+      redirect_to request.referrer, flash: { notice: 'Passwords did not match' }
+      return
     end
-  end
 
-  def edit
+    @document = Document.new(file_params)
+    @document.password = params[:document][:password]
+    @document.save!
+    redirect_to root_path
   end
 
   def download
@@ -47,6 +43,10 @@ class DocumentsController < ApplicationController
   end
 
   private
+
+  def confirm_password
+    params[:document][:password] == params[:document][:password_confirmation]
+  end
 
   def set_file
     @document = Document.where(file_url: params[:id]).first

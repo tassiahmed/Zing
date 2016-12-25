@@ -26,6 +26,11 @@
       %section#banner
         .content
           - if @document
-            = label :filename, @document.filename
-            = button_to 'Download', download_document_path(@document.file_url), method: :get, class: 'btn btn-primary'
-            = button_to 'Back', root_path, method: :get, class: 'btn btn-info'
+            - if @password_verified
+              = label :filename, @document.filename
+              = button_to 'Download', download_document_path(@document.file_url), method: :get, class: 'btn btn-primary'
+              = button_to 'Back', root_path, method: :get, class: 'btn btn-info'
+            - else
+              = label :password_check, 'Type Password:'
+              = password_field :password_verification, class: 'form_input'
+              = button_to 'Submit', document_path({ file_url: @document.file_url, password_confirmed: @document.check_password(:password_verification)}), class: 'btn btn-primary'

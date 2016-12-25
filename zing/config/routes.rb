@@ -4,8 +4,9 @@ Rails.application.routes.draw do
     member do
       get :download, param: :file_url
       post :show, param: :file_url
+      get :check_password, param: :file_url
     end
   end
 
-  root 'documents#home'
+  root 'documents#index'
 end
